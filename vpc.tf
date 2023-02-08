@@ -61,7 +61,7 @@ resource "aws_subnet" "private_subnet_c" {
 resource "aws_nat_gateway" "nat_gway" {
   connectivity_type = "public"
   subnet_id         = aws_subnet.public_a.id
-  alloction_id = aws_eip.nat_eip.id
+  allocation_id = aws_eip.nat_eip.id
 }
 
 #Allocate Elastic IP Address
