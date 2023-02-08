@@ -63,7 +63,7 @@ resource "aws_nat_gateway" "nat_gway" {
   subnet_id         = aws_subnet.public_a.id
 
 #Allocate Elastic IP Address
-resource "aws_eip" "aws_nat_gateway_eip"{
+resource "aws_eip" "nat_gateway_eip"{
     vpc = true
     tags = {
         Name = "eip"
