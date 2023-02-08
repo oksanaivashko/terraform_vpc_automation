@@ -24,3 +24,4 @@ To check connection on private subnet we can create private instance and make su
 To check If your instance has internet, you can just create Instance, make sure on your vpc, public subnet and enable your ip address.  
 
 To have internet in private instance you need to create Nat Gateway. Nat ‘gateway never connect to internet gateway always connect to public subnet to the one you specified.  
+![vpc tf](https://user-images.githubusercontent.com/108756145/217643734-1d9d2ebf-0deb-43a9-9d2b-6dd97728868d.jpg)
