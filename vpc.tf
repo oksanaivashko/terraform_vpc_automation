@@ -61,16 +61,17 @@ resource "aws_subnet" "private_subnet_c" {
 resource "aws_nat_gateway" "nat_gway" {
   connectivity_type = "private"
   subnet_id         = aws_subnet.public_a.id
+  alloction_id = aws_eip.nat_eip.id
+}
 
 #Allocate Elastic IP Address
-resource "aws_eip" "nat_gateway_eip"{
+resource "aws_eip""nat_eip"{
     vpc = true
     tags = {
         Name = "eip"
     }
 }
 
-}
 #Create private route table and attach to VPC
 resource "aws_route_table" "tasktest_private_route_table" {
   vpc_id = aws_vpc.tf_vpc.id
