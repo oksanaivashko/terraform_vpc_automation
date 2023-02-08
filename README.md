@@ -1,5 +1,5 @@
 # Terraform VPC Automation
-# Create a VPC step by step in GUI
+# VPC step by step in GUI
 
 - Select a region where you want your VPC to be create.
 
