@@ -59,7 +59,7 @@ resource "aws_subnet" "private_subnet_c" {
 }
 #Create NatGateway with the public subnet and connect to private subnet
 resource "aws_nat_gateway" "nat_gway" {
-  connectivity_type = "private"
+  connectivity_type = "public"
   subnet_id         = aws_subnet.public_a.id
   alloction_id = aws_eip.nat_eip.id
 }
