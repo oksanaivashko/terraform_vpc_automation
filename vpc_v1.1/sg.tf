@@ -2,6 +2,9 @@ resource "aws_security_group" "main_sg1" {
   name        = "${var.env}-sg"
   description = format("%s-sg", var.env)
  vpc_id = aws_vpc.my_vpc.id
+ tags = {
+    Name     = var.tags_main_sg1
+  }
 }
 resource "aws_security_group_rule" "ingress" {
   count = length( var.ports ) 
@@ -18,9 +21,6 @@ resource "aws_security_group_rule" "egress" {
   protocol          = "-1"
   from_port         = 0
   security_group_id = aws_security_group.main_sg1.id
-  cidr_blocks = var.public_route_cidr_block
-  tags = {
-    Name     = var.tags_main_sg1
-  }
+  cidr_blocks = ["0.0.0.0/0"]
 }
 
