@@ -17,7 +17,7 @@ variable "tags_ec2"{
 
 # --- Security group ---
 
-variable "main_sg1"{
+variable "tags_main_sg1"{
     type = string
     description = " This is a sg name"
     default = "security_group"
@@ -26,7 +26,7 @@ variable "main_sg1"{
 variable "ports"{
     type = list(string)
     description = " This is a list of ports"
-    default = ["22", "80", "3306", "21", "20"]
+    default = ["22", "80"]
 }
 
 variable "task-launch-config"{
