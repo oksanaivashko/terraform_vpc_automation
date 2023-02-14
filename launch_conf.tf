@@ -1,7 +1,7 @@
 resource "aws_launch_configuration" "linux" {
-  name = "task-launch-config"
-  image_id = "ami-06e85d4c3149db26a"
-  instance_type = "t2.micro"
+  name = var.task-launch-config
+  image_id = data.aws_ami.amazon_linux_2.id
+  instance_type = var.instance_type
   security_groups = [ aws_security_group.lc_sg.id ]
-  key_name = "windows-key"
+  key_name = var.windows-key
 }
