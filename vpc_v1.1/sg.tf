@@ -1,7 +1,7 @@
 resource "aws_security_group" "main_sg1" {
   name        = "${var.env}-sg"
   description = format("%s-sg", var.env)
- 
+ vpc_id = aws_vpc.my_vpc.id
 }
 resource "aws_security_group_rule" "ingress" {
   count = length( var.ports ) 
