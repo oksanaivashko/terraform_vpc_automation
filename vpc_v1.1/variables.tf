@@ -129,6 +129,11 @@ variable "public_route_cidr_block" {
     description = "specify all traffic for route table cidr block"
     default = "0.0.0.0/0"
 }
+variable "tags_public__aroute_table" {
+    type = string
+    description = "specify all traffic for route table cidr block"
+    default = "0.0.0.0/0"
+}
 
 #  ---- Create IntGateway and connect to the VPC --- 
 

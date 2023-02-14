@@ -47,7 +47,11 @@ resource "aws_route_table" "public_route_table" {
     cidr_block = var.public_route_cidr_block
     gateway_id = aws_internet_gateway.int_gway.id
   }
+  tags = {
+        Name = var.tags_public_route_table
+  }
 }
+
 
 #  ---Associate subnets to Public Route Table---
 
