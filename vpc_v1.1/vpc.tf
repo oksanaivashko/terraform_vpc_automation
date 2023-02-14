@@ -1,9 +1,9 @@
 #Create VPC
 resource "aws_vpc" "my_vpc" {       
-  cidr_block       = "10.0.0.0/16"
-  instance_tenancy = "default"
+  cidr_block       = var.vpc_cider_block
+  instance_tenancy = var.ins_tenancy
    tags = {
-        Name = "my_vpc"
+        Name = var.tags_vpc
     }
 }
 
@@ -12,28 +12,28 @@ resource "aws_vpc" "my_vpc" {
 #   --- Create public subnets in three az ---
 
 
-resource "aws_subnet" "public_a" {
+resource "aws_subnet" "public_subnet_a" {
     vpc_id = aws_vpc.my_vpc.id
-  availability_zone = "us-west-2a"
-  cidr_block       = "10.0.1.0/24"
+  availability_zone = var.public_subnet_a
+  cidr_block       = var.public_subnet_cidr_a
   tags = {
-        Name = "public_subnet_a"
+        Name = var.tags_public_subnet_a
   }
 }
-resource "aws_subnet" "public_b" {
+resource "aws_subnet" "public_subnet_b" {
     vpc_id = aws_vpc.my_vpc.id
-  availability_zone = "us-west-2a"
-  cidr_block       = "10.0.2.0/24"
+  availability_zone = var.public_subnet_b
+  cidr_block       = var.public_subnet_cidr_b
   tags = {
-        Name = "public_subnet_b"
+        Name = var.tags_public_subnet_b
   }
 }
-resource "aws_subnet" "public_c" {
+resource "aws_subnet" "public_subnet_c" {
     vpc_id = aws_vpc.my_vpc.id
-  availability_zone = "us-west-2a"
-  cidr_block       = "10.0.3.0/24"
+  availability_zone = var.tags_public_subnet_c
+  cidr_block       = var.public_subnet_cidr_c
   tags = {
-        Name = "public_subnet_c"
+        Name = var.tags_public_subnet_c
   }
 }
 
@@ -44,7 +44,7 @@ resource "aws_route_table" "public_route_table" {
   vpc_id = aws_vpc.my_vpc.id
 
  route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block = var.public_route_cidr_block
     gateway_id = aws_internet_gateway.int_gway.id
   }
 }
@@ -52,15 +52,15 @@ resource "aws_route_table" "public_route_table" {
 #  ---Associate subnets to Public Route Table---
 
 resource "aws_route_table_association" "public_route_table1" {
-  subnet_id      = aws_subnet.public_a.id
+  subnet_id      = aws_subnet.public_subnet_a.id
   route_table_id = aws_route_table.public_route_table.id
 }
 resource "aws_route_table_association" "public_route_table2" {
-  subnet_id      = aws_subnet.public_a.id
+  subnet_id      = aws_subnet.public_subnet_a.id
   route_table_id = aws_route_table.public_route_table.id
 }
 resource "aws_route_table_association" "public_route_table3" {
-  subnet_id      = aws_subnet.public_a.id
+  subnet_id      = aws_subnet.public_subnet_a.id
   route_table_id = aws_route_table.public_route_table.id
 }
 
@@ -72,7 +72,7 @@ resource "aws_internet_gateway" "int_gway" {
   vpc_id = aws_vpc.my_vpc.id
 
   tags = {
-    Name = "int_gway"
+    Name = var.tags_int_gway
   }
 }
 
@@ -82,37 +82,37 @@ resource "aws_internet_gateway" "int_gway" {
 resource "aws_eip" "nat_gateway_eip"{
     vpc = true
     tags = {
-        Name = "eip"
+        Name = var.tags_eip
     }
 }
 
 
 #  ---- Create private subnets in three az ---
+
 resource "aws_subnet" "private_subnet_a" {
     vpc_id = aws_vpc.my_vpc.id
-  availability_zone = "us-west-2a"
-  cidr_block       = "10.0.11.0/24"
+  availability_zone = var.private_subnet_a
+  cidr_block       = var.private_subnet_cidr_a
   tags = {
-        Name = "private_subnet_a"
+        Name = var.tags_private_subnet_a
   }
 
 }
 resource "aws_subnet" "private_subnet_b" {
     vpc_id = aws_vpc.my_vpc.id
-  availability_zone = "us-west-2a"
-  cidr_block       = "10.0.12.0/24"
+  availability_zone = var.private_subnet_b
+  cidr_block       = var.private_subnet_cidr_b
   tags = {
-        Name = "private_subnet_b"
+        Name = var.tags_private_subnet_b
   }
 }
 resource "aws_subnet" "private_subnet_c" {
     vpc_id = aws_vpc.my_vpc.id
-  availability_zone = "us-west-2a"
-  cidr_block       = "10.0.13.0/24"
+  availability_zone = var.private_subnet_c
+  cidr_block       = var.private_subnet_cidr_c
   tags = {
-        Name = "private_subnet_c"
+        Name = var.tags_private_subnet_c
   }
-
 }
 
 
@@ -122,11 +122,11 @@ resource "aws_route_table" "tasktest_private_route_table" {
   vpc_id = aws_vpc.my_vpc.id
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block = var.private_route_cidr_block
     nat_gateway_id = aws_nat_gateway.nat_gway.id
   }
   tags = {
-        Name = "private_route_table"
+        Name = var.tags_private_route_table
   }
 
 }
@@ -154,7 +154,7 @@ resource "aws_route_table_association" "private_c" {
 #   --- Create NAT gateway ---
 
 resource "aws_nat_gateway" "nat_gway" {
-  connectivity_type = "public"
-  subnet_id         = aws_subnet.public_a.id
+  connectivity_type = var.nat_gway_connection
+  subnet_id         = aws_subnet.public_subnet_a.id
   allocation_id = aws_eip.nat_gateway_eip.id
 }
