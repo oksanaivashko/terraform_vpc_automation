@@ -1,2 +1,0 @@
-#Create auto scaling group
-

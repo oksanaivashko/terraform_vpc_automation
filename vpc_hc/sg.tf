@@ -1,7 +1,7 @@
 resource "aws_security_group" "lc_sg" {
   name        = "lc_sg"
   description = "Allow inbound traffic"
-  vpc_id      = "vpc-0a42426aa52e0c8f9"
+  vpc_id      = aws_vpc.task_vpc.id
 
   ingress {
     description = "Allow SSH from VPC"
