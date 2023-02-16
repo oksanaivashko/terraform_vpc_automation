@@ -9,7 +9,7 @@ resource "aws_autoscaling_group" "main" {
   health_check_type         = "EC2"
   desired_capacity          = var.desired_capacity
   force_delete              = var.force_delete
-  launch_configuration      = aws_launch_configuration.main.name
+  launch_configuration      = aws_launch_configuration.linux.name
   vpc_zone_identifier       = var.vpc_zone_identifier
   lifecycle {
     create_before_destroy = true
