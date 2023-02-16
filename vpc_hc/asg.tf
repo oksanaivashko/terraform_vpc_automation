@@ -1,4 +1,31 @@
-#Create auto scaling group
+# Steps to Create auto scaling group GUI
+# 
+# Name tag 
+# 
+# Launch template > switch to launch configuration  
+# 
+# Choose from drop down menu 
+# 
+# Choose the VPC that defines the virtual network for your Auto Scaling group-aws-homework 
+# 
+# Availability Zones and subnets- choose all private subnets 
+# 
+# No load balancer  
+# 
+# Health checks - 60 seconds  
+# 
+# Enable group metrics collection within CloudWatch (ec2)
+# 
+# Desire capacity - how many you need to have all the time (desire is the same minimum) 
+# 
+# Maximum capacity – max make it triple  
+# 
+# Scaling policies - none (avoid using target tracking scaling policy) 
+# 
+# Instance scale-in protection – don't enable 
+# 
+# No notification 
+
 
 
 resource "aws_autoscaling_group" "main" {
